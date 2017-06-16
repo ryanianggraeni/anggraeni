@@ -24,4 +24,9 @@ Route::resource('/coba', 'CobaaController');
 Route::group(['prefix'=>'admin','middleware'=>['auth','role:admin']], function(){
 	Route::resource('authors','AuthorsController');
 	Route::resource('books','BooksController');
+
+	Route::get('/', function(){
+		return view('welcome');
+	});
+	Route::get('/','GuestController@index');
 });

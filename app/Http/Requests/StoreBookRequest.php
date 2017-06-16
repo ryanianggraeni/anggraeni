@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreBookRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class StoreBookRequest extends FormRequest
     {
         return [
         'title'=>'required|unique:books,title',
-        'author_id'=>'required|exists:author,id',
+        'author_id'=>'required|exists:authors,id',
         'amount'=>'numeric',
         'cover'=>'image|max:2048'
             //

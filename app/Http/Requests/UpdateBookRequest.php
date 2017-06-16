@@ -2,19 +2,14 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
-
-class UpdateBookRequest extends FormRequest
+class UpdateBookRequest extends StoreBookRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
-        return false;
-    }
+   
 
     /**
      * Get the validation rules that apply to the request.
@@ -23,11 +18,9 @@ class UpdateBookRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-        $rules = parent::rules();
-        $rules['title'] = 'required|unique:book,title,' . $this->route('book');
+            $rules = parent::rules();
+        $rules['title'] = 'required|unique:books,title,' . $this->route('book');
         return $rules;
             //
-        ];
     }
 }
