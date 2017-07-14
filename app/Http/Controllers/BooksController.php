@@ -8,8 +8,33 @@ use Session;
 use App\Author;
 use App\Http\Requests\UpdateBookRequest;
 use Illuminate\Support\Facades\File;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Borrowlog;
+use Illuminate\Support\Facades\Auth;
+use App\Exceptions\BookException;
 class BooksController extends Controller
 {
+
+  public function borrow($id)
+    {
+        try {
+            $book=Book::findOrFail($id);
+            Auth::user()->borrow($book);
+            Session::flash("flash_notification", [
+            "level"=>"success",
+            "message"=>"Berhasil Meminjam $book->title" ]);
+        } catch(BookException $e) {
+            Session::flash("flash_notification", [
+            "level"=>"danger",
+            "message"=>$e->getMessage() ]);
+        } catch(FileNotFoundException $e) {
+            Session::flash("flash_notification", [
+            "level"=>"danger",
+            "message"=>"Buku Tidak Ditemukan" ]);
+        }
+        return redirect('/');
+    }
+
     /**
      * Display a listing of the resource.
      *

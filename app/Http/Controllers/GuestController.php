@@ -8,7 +8,7 @@ use App\Http\Requests;
 use Yajra\Datatables\Html\Builder;
 use Yajra\Datatables\Datatables;
 use App\Book;
-use Laratrust\LaratrustFacades as Laratrust;
+use Laratrust\LaratrustFacade as Laratrust;
 
 class GuestController extends Controller
 {
@@ -21,7 +21,7 @@ class GuestController extends Controller
     		return Datatables::of($books)
     		->addColumn('action', function($book){
     			if (Laratrust::hasRole('admin')) return '';
-    			return '<a class="btn btn-xs btn-primary" href="#">Pinjam</a>';
+    			return '<a class="btn btn-xs btn-primary" href="'.route('guest.books.borrow',$book->id).'">Pinjam</a>';
     		})->make(true);
     	}
     	$html = $htmlBuilder

@@ -17,5 +17,19 @@ class Borrowlog extends Model
     return $this->belongsTo('App\User');
     }
 
+    protected $casts =[
+    'is_returned'=>'boolean',
+    ];
+
+    public function scopeReturned($query)
+    {
+        return $query->where('is_returned',1);
+    }
+
+    public function scopeBorrowed($query)
+    {
+        return $query->where('is_returned',0);
+    }
+
     
 }
