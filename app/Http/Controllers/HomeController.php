@@ -22,7 +22,7 @@ class HomeController extends Controller
     }
     protected function memberDashboard()
     {
-        $borrowlogs =Auth::user()->borrowlogs()->borrowned()->get();
+        $borrowlogs =Auth::user()->borrowlogs()->borrowed()->get();
         return view('dashboard.member',compact('borrowlogs'));
     }
     /**

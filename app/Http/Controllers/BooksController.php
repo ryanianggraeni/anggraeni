@@ -15,6 +15,26 @@ use App\Exceptions\BookException;
 class BooksController extends Controller
 {
 
+    public function returnBack($book_id)
+    {
+        $borrowlog = Borrowlog::where('user_id',Auth::user()->id)
+        ->where('book_id',$book_id)
+        ->where('is_returned',0)
+        ->first();
+
+        if ($borrowlog){
+            $borrowlog->is_returned =true;
+            $borrowlog->save();
+
+            Session::flash("flash_notification",[
+                "level"=>"success",
+                "message"=>"Berhasil Mengembalikan ". $borrowlog->book->title
+                ]);
+        }
+        return redirect('/home');
+
+    }
+
   public function borrow($id)
     {
         try {
@@ -111,7 +131,6 @@ class BooksController extends Controller
     {
          
          $book = Book::find($id);
-        $book-> update($request->all());
         if($request->hasFile('cover'))
         {
             $filename=null;
@@ -146,8 +165,11 @@ class BooksController extends Controller
     public function destroy($id)
     {
         $book=Book::find($id);
-        if($book->cover)
+        $cover = $book->cover;
+        if(!$book->delete()) return redirect()->back();
+       
             {
+                if ($cover){
                 $old_cover=$book->cover;
                 $filepath=public_path().DIRECTORY_SEPARATOR.'img'.DIRECTORY_SEPARATOR.$book->cover;
                 try {
@@ -155,11 +177,12 @@ class BooksController extends Controller
                 } catch(FileNotFoundException $e) {
                 }
             }
-            $book->delete();
+           
         
         Session::flash("flash_notification", [
             "level"=>"success",
             "message"=>"Buku Berhasil Dihapus"]);
-        return redirect()->route('books.index');
+        return redirect()->route('admin.books.index');
     }
+}
 }

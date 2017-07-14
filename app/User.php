@@ -26,13 +26,16 @@ class User extends Authenticatable
     public function borrow(Book $book)
     {
          
-        
-        if ($this->borrowLogs()->where('book_id',$book->id)->where('is_returned',0)->count()>0)
+        if ($book->stock < 1){
+            throw new BookException("Buku $book->title Sedang Tidak Tersedia");
+
+        }
+        if ($this->borrowlogs()->where('book_id',$book->id)->where('is_returned',0)->count()>0)
         {
             throw new BookException("Buku $book->title Sedang Anda Pinjam");
         }
-        $borrowLog = BorrowLog::create(['user_id'=>$this->id,'book_id'=>$book->id]);
-        return $borrowLog;
+        $borrowLog = Borrowlog::create(['user_id'=>$this->id,'book_id'=>$book->id]);
+        return $borrowlog;
     }
     public function borrowLogs()
     {
