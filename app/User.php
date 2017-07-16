@@ -4,7 +4,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laratrust\Traits\LaratrustUserTrait;
 use App\Book;
-use App\BorrowLog;
+use App\Borrowlog;
 use App\Exceptions\BookException;
 use Illuminate\Support\Facades\Mail;
 class User extends Authenticatable
@@ -34,12 +34,12 @@ class User extends Authenticatable
         {
             throw new BookException("Buku $book->title Sedang Anda Pinjam");
         }
-        $borrowLog = Borrowlog::create(['user_id'=>$this->id,'book_id'=>$book->id]);
+        $borrowlog = Borrowlog::create(['user_id'=>$this->id,'book_id'=>$book->id]);
         return $borrowlog;
     }
     public function borrowLogs()
     {
-        return $this->hasMany('App\BorrowLog');
+        return $this->hasMany('App\Borrowlog');
     }
     protected $casts = ['is_verified'=>'boolean'];
     public function generateVerificationToken()

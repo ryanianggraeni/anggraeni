@@ -18,7 +18,7 @@
 						{!! Form::label('password','Password Lama',['class'=>'col-md-4 control-label']) !!}
 						<div class="col-md-6">
 							{!! Form::password('password',['class'=>'form-control']) !!}
-							{!! $errors->first('password','<p class="help-block">message</p>') !!}
+							{!! $errors->first('password','<p class="help-block">:message</p>') !!}
 						</div>
 					</div>
 
@@ -26,7 +26,7 @@
 						{!! Form::label('new_password','Password Baru',['class'=>'col-md-4 control-label']) !!}
 						<div class="col-md-6">
 							{!! Form::password('new_password',['class'=>'form-control']) !!}
-							{!! $errors->first('new_password','<p class="help-block">message</p>') !!}
+							{!! $errors->first('new_password','<p class="help-block">:message</p>') !!}
 						</div>
 					</div>
 
@@ -34,7 +34,7 @@
 						{!! Form::label('new_password_confirmation','Konfirmasi Password Baru',['class'=>'col-md-4 control-label']) !!}
 						<div class="col-md-6">
 							{!! Form::password('new_password_confirmation',['class'=>'form-control']) !!}
-							{!! $errors->first('new_password_confirmation','<p class="help-block">message</p>') !!}
+							{!! $errors->first('new_password_confirmation','<p class="help-block">:message</p>') !!}
 						</div>
 					</div>
 

@@ -54,7 +54,7 @@
                             <li><a href="{{ route('members.index') }}">Member</a></li>
                             <li><a href="{{ route('statistics.index') }}">Peminjaman</a></li>
                         @endrole
-                        @if(Auth::check())
+                        @if(auth()->check())
                             <li><a href="{{ url('/settings/profile') }}">Profil</a></li>
                         @endif
                     </ul>

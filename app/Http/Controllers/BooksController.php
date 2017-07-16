@@ -159,7 +159,7 @@ class BooksController extends Controller
         Session::flash("flash_notification", [
             "level"=>"success",
             "message"=>"Buku Berhasil Dihapus"]);
-        return redirect()->route('admin.books.index');
+        return redirect()->route('books.index');
     }
     public function borrow($id)
     {

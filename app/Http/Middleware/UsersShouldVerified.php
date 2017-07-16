@@ -19,6 +19,7 @@ class UsersShouldVerified
     {
         $response =$next($request);
         if (Auth::check() && !Auth::user()->is_verified){
+            $link = url('auth/send-verification').'?email='.urlencode(Auth::user()->email);
             Auth::logout();
 
             Session::flash("flash_notification",[

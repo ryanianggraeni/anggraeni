@@ -18,7 +18,7 @@
 							<tr>
 								<td class="text-muted">Nama</td>
 								<td>{{ auth()->user()->name}}</td>
-							</tr>
+							</tr> 
 							<tr>
 								<td class="text-muted">Email</td>
 								<td>{{ auth()->user()->email}}</td>
