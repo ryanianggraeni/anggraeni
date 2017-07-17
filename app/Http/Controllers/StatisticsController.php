@@ -14,11 +14,13 @@ class StatisticsController extends Controller
     {
     	if($request->ajax()){
     		$stats = Borrowlog::with('book','user');
+            if ($request->get('status')=='returned') $stats->returned();
+            if($request->get('status')=='not-returned')$stats->borrowed();
 
     		return Datatables::of($stats)
-    		->addColumn('returned_at',function($stats){
-    			if ($stats->is_returned){
-    				return $stats->updated_at;
+    		->addColumn('returned_at',function($stat){
+    			if ($stat->is_returned){
+    				return $stat->updated_at;
     			}
     			return "Masih dipinjam";
     		})->make(true);
