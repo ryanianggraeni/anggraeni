@@ -37,5 +37,13 @@ class UsersSeeder extends Seeder
         $member->save();
         $member->attachRole($memberRole);
 
+        $admin->is_verified =1;
+        $admin->save();
+        $admin->attachRole($adminRole);
+
+        $member->is_verified =1;
+        $member->save();
+        $member->attachRole($memberRole);
+
     }
 }

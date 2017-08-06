@@ -55,10 +55,10 @@ class User extends Authenticatable
     }
     public function sendVerification()
     {
-        $token = $this->generateVerificationToken();
-        $user = $this;
+        $token =$this->generateVerificationToken();
+        $user=$this;
         
-        Mail::send('auth.emails.verification', compact('user','token'), function($m) use($user){
+        Mail::send('auth.emails.verification', compact('user','token'), function ($m) use ($user){
             $m->to($user->email, $user->name)->subject('Verifikasi Akun Larapus');
         });
     }
@@ -68,4 +68,6 @@ class User extends Authenticatable
         $this->verification_token = null;
         $this->save();
     }
+
+   
 }
